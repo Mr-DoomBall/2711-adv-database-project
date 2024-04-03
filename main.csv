@@ -1,4 +1,4 @@
-,encounter_id,patient_nbr,admission_type_id,discharge_disposition_id,admission_source_id
+encounter_id,patient_nbr,admission_type_id,discharge_disposition_id,admission_source_id
 0,2278392,8222157,6,25,1
 1,149190,55629189,1,1,7
 2,64410,86047875,1,1,7
