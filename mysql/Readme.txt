@@ -1,0 +1,1 @@
+1. just open the mysql_backup.sql with your Mysql and execute it.
