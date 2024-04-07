@@ -1,0 +1,21 @@
+<!-- views/mongo.ejs -->
+
+<% if (typeof queryAnswers != "undefined") { %>
+    <% for (var idx=0; idx < queryAnswers.length; idx++) { %>
+        <p><%= queryAnswers[idx] %></p>
+    <% } %>
+<% } %>
+<table style="width:100%">
+    <tr>
+        <% Object.keys(data[0]).forEach(function(key) { %>
+            <th><%= key %></th>
+        <% }); %>
+    </tr>
+    <% for (var idx=0; idx < data.length; idx++) { %>
+    <tr>
+        <% Object.keys(data[0]).forEach(function(key) { %>
+                <td><%= data[idx][key] %></td> 
+        <% }); %>
+    </tr>
+    <% } %>
+</table>

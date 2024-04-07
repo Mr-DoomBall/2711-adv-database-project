@@ -1,0 +1,16 @@
+<!-- views/neo4j.ejs -->
+
+<table style="width:100%">
+    <tr>
+        <% data[0].keys.forEach(function(key) { %>
+            <th><%= key %></th>
+        <% }); %>
+    </tr>
+    <% for (var idx=0; idx < data.length; idx++) { %>
+    <tr>
+        <% data[0].keys.forEach(function(key) { %>
+                <td><%= data[idx].get(key) %></td> 
+        <% }); %>
+    </tr>
+    <% } %>
+</table>
