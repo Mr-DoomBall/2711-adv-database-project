@@ -367,3 +367,7 @@ mongoDBpipelines = {
         }
     ],
 }
+
+//somehow this line is crucial
+module.exports = mongoDBpipelines;
+

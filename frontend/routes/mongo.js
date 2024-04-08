@@ -65,7 +65,7 @@ router.get("/query4", function (req, res) {
 
 router.get("/query5", function (req, res) {
     const collection = req.app.locals.collection;
-    collection.aggregate(mongoDBpipelines["query6"], {allowDiskUse: true}).toArray()
+    collection.aggregate(mongoDBpipelines["query5"], {allowDiskUse: true}).toArray()
         .then(function (results) {
             //res.status(200).json(results);
             //console.log(results);
@@ -80,7 +80,7 @@ router.get("/query5", function (req, res) {
 
 router.get("/query6", function (req, res) {
     const collection = req.app.locals.collection;
-    collection.aggregate(mongoDBpipelines["query7"], {allowDiskUse: true}).toArray()
+    collection.aggregate(mongoDBpipelines["query6"], {allowDiskUse: true}).toArray()
         .then(function (results) {
             //res.status(200).json(results);
             //console.log(results);
@@ -110,7 +110,7 @@ router.get("/query7", function (req, res) {
 
 router.get("/query8", function (req, res) {
     const collection = req.app.locals.collection;
-    collection.aggregate(mongoDBpipelines["query7"], { allowDiskUse: true }).toArray()
+    collection.aggregate(mongoDBpipelines["query8"], { allowDiskUse: true }).toArray()
         .then(function (results) {
             //res.status(200).json(results);
             //console.log(results);
