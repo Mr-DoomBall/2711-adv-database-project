@@ -132,8 +132,19 @@ app.post("/process", function (req, res) {
             res.status(400).send("Invalid query ID");
         }
     } else if (databaseType === "neo4j") {
-        // Handle Neo4j database query
-        // Redirect or process as needed
+        const session = req.app.locals.neo4jSession;
+        if (neo4jQueries[queryKey]) {
+            session.run(neo4jQueries[queryKey])
+                .then(function (result) {
+                    res.render("neo4j", { data: result.records });
+                })
+                .catch(function (error) {
+                    console.error(error);
+                    res.status(500).send("Error processing Neo4j query");
+                })
+                .then(function () {
+                return session.close();
+            });
     } else {
         res.status(400).send("Invalid database type");
     }
