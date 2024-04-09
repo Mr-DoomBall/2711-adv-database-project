@@ -41,6 +41,11 @@
 </head>
 <body>
 <div class="container">
+    <% if (typeof queryAnswers != "undefined" && queryAnswers.length > 0) { %>
+        <% queryAnswers.forEach(function(answer) { %>
+            <p><%= answer %></p>
+        <% }); %>
+    <% } %>
     <% if (typeof data != "undefined" && data.length > 0) { %>
         <table>
             <tr>
@@ -48,9 +53,9 @@
                     <th><%= key %></th>
                 <% }); %>
             </tr>
-            <% data.forEach(function(row, idx) { %>
+            <% data.forEach(function(row) { %>
                 <tr>
-                    <% Object.keys(data[idx]).forEach(function(key) { %>
+                    <% Object.keys(row).forEach(function(key) { %>
                         <td><%= row[key] %></td>
                     <% }); %>
                 </tr>

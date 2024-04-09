@@ -41,17 +41,22 @@
 </head>
 <body>
 <div class="container">
+    <% if (typeof queryAnswers != "undefined" && queryAnswers.length > 0) { %>
+        <% queryAnswers.forEach(function(answer) { %>
+            <p><%= answer %></p>
+        <% }); %>
+    <% } %>
     <% if (typeof data != "undefined" && data.length > 0) { %>
         <table>
             <tr>
-                <% data[0].keys.forEach(function(key) { %>
+                <% Object.keys(data[0]).forEach(function(key) { %>
                     <th><%= key %></th>
                 <% }); %>
             </tr>
             <% data.forEach(function(row) { %>
                 <tr>
-                    <% row.keys.forEach(function(key) { %>
-                        <td><%= row.get(key) %></td>
+                    <% Object.keys(row).forEach(function(key) { %>
+                        <td><%= row[key] %></td>
                     <% }); %>
                 </tr>
             <% }); %>

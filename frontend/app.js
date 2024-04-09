@@ -4,34 +4,14 @@ const bodyParser = require("body-parser")
 const path = require("path");
 const url = require("url");
 const port = 3000;
-//const mongoose = require("mongoose");
-const mysql = require("mysql");
 const MongoClient = require("mongodb").MongoClient;
+const mysql = require("mysql");
 const neo4j = require("neo4j-driver");
-const mongoDBpipelines = require("./public/mongoDBpipelines");
-
-
-// Please uncomment after finish SQL
-/* SQL */
-// connection
-// var con = mysql.createConnection({
-//     host: "localhost",
-//     port: "7778",
-//     user: "root",
-//     password: "root",
-//     database : "diabetic_db"
-// });
-//
-// con.connect(function (err) {
-//     if (err) throw "Connection to SQL failed";
-//     console.log("Connected to SQL");
-//     app.locals.con = con;
-// });
-/* SQL */
+require("./public/mongoDBpipelines.js");
+require("./public/sqlQueries.js");
 
 
 /* MongoDB */
-// connection
 const mongoDBurl = "mongodb://localhost:27017/diabetic_db";
 
 MongoClient.connect(mongoDBurl, {useNewUrlParser: true, retryWrites: true, useUnifiedTopology: true}, function (err, client) {
@@ -42,6 +22,23 @@ MongoClient.connect(mongoDBurl, {useNewUrlParser: true, retryWrites: true, useUn
     console.log("Connected to MongoDB");
 });
 /* MongoDB */
+
+
+/* SQL */
+var con = mysql.createConnection({
+    host: "localhost",
+    port: "3306",
+    user: "root",
+    password: "root",
+    database : "diabetic_db"
+});
+
+con.connect(function (err) {
+    if (err) throw "Connection to SQL failed";
+    app.locals.con = con;
+    console.log("Connected to SQL"); 
+});
+/* SQL */
 
 
 // Please uncomment after finish Neo4j
@@ -103,7 +100,7 @@ app.post("/process", function (req, res) {
     console.log(req.body); // Add this line to see what is being received
     const databaseType = req.body.database;
     const queryId = req.body.query;
-    const queryKey = `query${queryId}`; // This matches the keys in mongoDBpipelines
+    const queryKey = `query${queryId}`; 
 
     if (databaseType === "mongodb") {
         const collection = req.app.locals.collection;
@@ -121,9 +118,19 @@ app.post("/process", function (req, res) {
         } else {
             res.status(400).send("Invalid query ID");
         }
-    } else if (databaseType === "sql") {
-        // Handle SQL database query
-        // Redirect or process as needed
+    } else if (databaseType === "sql") { 
+        const con = req.app.locals.con;
+        if (sqlQueries[queryKey]) {
+            con.query(sqlQueries[queryKey], function (err, rows) {
+            res.render("sql", {
+                data: rows
+            }, function (err, html) {
+                res.send(html);
+            });
+        });
+        } else {
+            res.status(400).send("Invalid query ID");
+        }
     } else if (databaseType === "neo4j") {
         // Handle Neo4j database query
         // Redirect or process as needed
