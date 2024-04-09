@@ -41,20 +41,20 @@ con.connect(function (err) {
 /* SQL */
 
 
-// Please uncomment after finish Neo4j
+
 /* Neo4j */
-// connection
-// const neo4jUrl = "neo4j://localhost:7687";
-// const driver = neo4j.driver(neo4jUrl, neo4j.auth.basic("neo4j", "password"));
-// const session = driver.session({ database: "neo4j", defaultAccessMode: neo4j.session.READ });
-//
-// session.run("RETURN 1").then(function (res) {
-//     console.log("Connected to Neo4j");
-// }).catch(function (err) {
-//     console.log("Connection to Neo4j failed");
-// }).then(function () {
-//     session.close();
-// });
+ connection
+ const neo4jUrl = "neo4j+s://76ff0f6f.databases.neo4j.io";
+ const driver = neo4j.driver(neo4jUrl, neo4j.auth.basic("neo4j", "password"));
+ const session = driver.session({ database: "neo4j", defaultAccessMode: neo4j.session.READ });
+
+ session.run("RETURN 1").then(function (res) {
+     console.log("Connected to Neo4j");
+ }).catch(function (err) {
+     console.log("Connection to Neo4j failed");
+ }).then(function () {
+     session.close();
+ });
 /* Neo4j */
 
 
