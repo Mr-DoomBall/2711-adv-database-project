@@ -11,7 +11,7 @@ const session = driver.session({ database: "neo4j", defaultAccessMode: neo4j.ses
 router.get("/query1", function (req, res) {
     const session = req.app.locals.session;
     session.run(neo4jCyphers["query1"]).then(function (result) {
-        //console.log(result);
+        console.log(result);
         res.render("neo4j", {
             data: result.records
         }, function (err, html) {
@@ -101,7 +101,7 @@ router.get("/query7", function (req, res) {
 
 router.get("/query8", function (req, res) {
     const session = req.app.locals.session;
-    session.run(neo4jCyphers["query7"]).then(function (result) {
+    session.run(neo4jCyphers["query8"]).then(function (result) {
         //console.log(result);
         res.render("neo4j", {
             data: result.records

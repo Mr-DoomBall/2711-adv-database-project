@@ -9,7 +9,7 @@ const mysql = require("mysql");
 const neo4j = require("neo4j-driver");
 require("./public/mongoDBpipelines.js");
 require("./public/sqlQueries.js");
-
+const neo4jCyphers = require("./public/neo4jCyphers.js")
 
 /* MongoDB */
 const mongoDBurl = "mongodb://localhost:27017/diabetic_db";
@@ -43,17 +43,19 @@ con.connect(function (err) {
 
 
 /* Neo4j */
- connection
- const neo4jUrl = "neo4j+s://76ff0f6f.databases.neo4j.io";
+
+ const neo4jUrl = "bolt://localhost:7687";
  const driver = neo4j.driver(neo4jUrl, neo4j.auth.basic("neo4j", "password"));
+
  const session = driver.session({ database: "neo4j", defaultAccessMode: neo4j.session.READ });
 
  session.run("RETURN 1").then(function (res) {
      console.log("Connected to Neo4j");
+     app.locals.neo4jSession = session;
  }).catch(function (err) {
      console.log("Connection to Neo4j failed");
  }).then(function () {
-     session.close();
+    //  session.close();
  });
 /* Neo4j */
 
@@ -133,9 +135,11 @@ app.post("/process", function (req, res) {
         }
     } else if (databaseType === "neo4j") {
         const session = req.app.locals.neo4jSession;
-        if (neo4jQueries[queryKey]) {
-            session.run(neo4jQueries[queryKey])
+        
+        if (neo4jCyphers[queryKey]) {
+            session.run(neo4jCyphers[queryKey])
                 .then(function (result) {
+                    console.log(session)
                     res.render("neo4j", { data: result.records });
                 })
                 .catch(function (error) {
@@ -143,12 +147,12 @@ app.post("/process", function (req, res) {
                     res.status(500).send("Error processing Neo4j query");
                 })
                 .then(function () {
-                return session.close();
+                // return session.close();
             });
     } else {
         res.status(400).send("Invalid database type");
     }
-});
+}});
 
 
 // load routes

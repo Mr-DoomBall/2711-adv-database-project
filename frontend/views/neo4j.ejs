@@ -41,11 +41,7 @@
 </head>
 <body>
 <div class="container">
-    <% if (typeof queryAnswers != "undefined" && queryAnswers.length > 0) { %>
-        <% queryAnswers.forEach(function(answer) { %>
-            <p><%= answer %></p>
-        <% }); %>
-    <% } %>
+   
     <% if (typeof data != "undefined" && data.length > 0) { %>
         <table>
             <tr>
@@ -65,5 +61,123 @@
         <p>No data found or query did not return any results.</p>
     <% } %>
 </div>
+
+<div id="chartContainer" style="width: 1800px; height: 700px;
+ display: flex; justify-content: center; align-items: center;">
+    <canvas id="myChart"></canvas>
+</div>
+
+<div id="chartContainer2" style="width: 1800px; height: 700px; margin-top: 300px;
+ display: flex; justify-content: center; align-items: center;">
+    <canvas id="myChart_sub1"></canvas>
+    <canvas id="myChart_sub2"></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+             labels: ["Female,Male"],
+            // backgroundColor : ["red","yellow"],
+            datasets: [
+                {
+                    label: 'AfricanAmerican',
+                    backgroundColor: ['rgba(255, 0, 0, 0.5)','rgba(255, 0, 0, 1)'],
+                    data: [5762,3795]
+                },
+                {
+                    label: 'Asian',
+                    backgroundColor: ['rgba(0, 128, 0, 0.5)','rgba(0, 128, 0, 1)'],
+                    data: [209,217]
+                },
+                {
+                    label: 'Caucasian',
+                    backgroundColor: ['rgba(255, 192, 203, 0.5)','rgba(255, 192, 203,1)'],
+                    data: [20876,20037]
+                },
+                {
+                    label: 'Hispanic',
+                    backgroundColor: ['rgba(128, 128, 128, 0.5)','rgba(128, 128, 128, 1)'],
+                    data: [655,567]
+                },
+                {
+                    label: 'Other',
+                    backgroundColor: ['rgba(255, 255, 255, 0.5)','rgba(255, 255, 255,1)'],
+                    data: [484,489]
+                },
+                {
+                    label: "?",
+                    backgroundColor: ['rgba(0, 0, 0, 0.5)','rgba(0, 0, 0, 1)'],
+                    data: [836,815]
+                },
+            ]
+        },
+        options: {
+            animation: {
+            duration: 2000,
+            easing: 'easeInOutQuad',
+            cutoutPercentage: 0,
+        },
+        scales: {
+            x: {
+                stacked: true
+            },
+            y: {
+                stacked: true
+            }
+        }
+        }
+    })
+
+    var ctx1 = document.getElementById('myChart_sub1').getContext('2d');
+            var myChart_sub1 = new Chart(ctx1, {
+            type: 'polarArea',
+            data: {
+                labels: ["AfricanAmerican","Asian","Caucasian","Hispanic","?","Other"],
+                // backgroundColor : ["red","yellow"],
+                datasets: [{
+                label: 'Female', 
+                backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 128, 0, 0.5)', 'rgba(255, 192, 203, 1)', 'rgba(128, 128, 128, 1)', 'rgba(255, 255, 255, 1)', 'rgba(0, 0, 0, 1)', 'rgba(255, 255, 0, 1)', 'rgba(125, 55, 77, 1)', 'rgba(255, 66, 88, 1)'], // 设置颜色数组
+                data: [0.199,0.007,0.724,0.022,0.016,0.029] 
+                
+            }]
+            },
+            options: {
+                animation: {
+                duration: 2000,
+                easing: 'easeInOutQuad',
+                cutoutPercentage: 0,
+            },
+            
+            }
+        })
+        var ctx2 = document.getElementById('myChart_sub2').getContext('2d');
+            var myChart_sub2 = new Chart(ctx2, {
+            type: 'polarArea',
+            data: {
+                labels: ["AfricanAmerican","Asian","Caucasian","Hispanic","?","Other"],
+                // backgroundColor : ["red","yellow"],
+                datasets: [{
+                label: 'Male', 
+                backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 128, 0, 0.5)', 'rgba(255, 192, 203, 1)', 'rgba(128, 128, 128, 1)', 'rgba(255, 255, 255, 1)', 'rgba(0, 0, 0, 1)', 'rgba(255, 255, 0, 1)', 'rgba(125, 55, 77, 1)', 'rgba(255, 66, 88, 1)'], // 设置颜色数组
+                data: [0.146,0.008,0.773,0.021,0.031,0.018] 
+                
+            }]
+            },
+            options: {
+                animation: {
+                duration: 2000,
+                easing: 'easeInOutQuad',
+                cutoutPercentage: 0,
+            },
+            
+            }
+        })
+
+
+</script>
+
 </body>
 </html>
